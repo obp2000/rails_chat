@@ -1,0 +1,25 @@
+.row
+  .col-md-2.p-3
+    = turbo_stream_from dom_id(current_user)
+    = turbo_frame_tag dom_id(current_user)
+    h6
+      |> Пользователь:
+      = current_user.email
+      |>
+      = link_to 'Выйти', destroy_user_session_path, method: 'delete',
+        data: { turbo_method: :delete }
+    h5
+      | Чаты
+    div
+      = turbo_stream_from "rooms"
+      #rooms
+        = render @rooms
+    = render partial: "form"
+  .col-md-10.bg-dark.text-light
+    - if @single_room
+      h5.text-center
+        = @single_room.name
+      = turbo_stream_from @single_room
+      #messages
+        = render @messages
+      = render partial: 'messages/form'

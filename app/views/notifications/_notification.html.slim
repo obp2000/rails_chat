@@ -1,0 +1,7 @@
+- if instance
+  .border.border-primary.rounded.p-2
+    |> Новое сообщение в чате
+    = instance.to_notification.room
+    |> :
+    = instance.to_notification.message
+  = audio_tag("notification.wav", autoplay: true)
